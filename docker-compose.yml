@@ -1,0 +1,69 @@
+# Docker Compose Configuration
+# This file defines how to run the application with Docker
+# Usage: docker-compose up
+
+version: '3.8'
+
+services:
+  # API Service
+  # This is your FastAPI object detection application
+  api:
+    # Build configuration
+    build:
+      context: .              # Use current directory as build context
+      dockerfile: Dockerfile  # Use the Dockerfile we created
+
+    # Container name (instead of auto-generated name)
+    container_name: object-detection-api
+
+    # Port mapping: host_port:container_port
+    # Access the API at http://localhost:8000
+    ports:
+      - "8000:8000"
+
+    # Environment variables
+    # These override defaults in app/config.py
+    environment:
+      - MODEL_NAME=yolov8n.pt          # YOLO model to use
+      - CONFIDENCE_THRESHOLD=0.5        # Detection confidence
+      - MAX_FILE_SIZE=10000000          # 10MB max upload
+
+    # Volume mounts (optional)
+    # Uncomment to persist model downloads or enable hot-reload
+    # volumes:
+    #   - ./models:/app/models          # Persist downloaded models
+    #   - ./app:/app/app                # Hot-reload for development
+
+    # Restart policy
+    # unless-stopped: Always restart unless manually stopped
+    restart: unless-stopped
+
+    # Health check (Docker will monitor this)
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s  # Give model time to download on first start
+
+    # Resource limits (optional but recommended for production)
+    # Uncomment to set limits
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '2.0'      # Max 2 CPU cores
+    #       memory: 2G       # Max 2GB RAM
+    #     reservations:
+    #       cpus: '1.0'      # Reserve 1 CPU core
+    #       memory: 512M     # Reserve 512MB RAM
+
+# Networks (optional)
+# Uncomment if you want to connect multiple services
+# networks:
+#   app_network:
+#     driver: bridge
+
+# Volumes (optional)
+# Define named volumes for persistence
+# volumes:
+#   model_cache:
