@@ -98,9 +98,24 @@ pip install -r requirements.txt
 # Run the development server
 uvicorn app.main:app --reload
 
-# Access API documentation
-open http://localhost:8000/docs
+# Access the application
+open http://localhost:8000/          # Visual demo interface
+open http://localhost:8000/docs      # API documentation
 ```
+
+### Try the Demo Interface
+
+1. Start the server (see above)
+2. Open http://localhost:8000/ in your browser
+3. Upload an image (drag & drop or click)
+4. Adjust detection settings if needed
+5. Click "Detect Objects" to see results with bounding boxes
+
+The interface provides:
+- Visual bounding boxes drawn on your image
+- Confidence scores for each detection
+- Real-time inference statistics
+- Adjustable confidence and IoU thresholds
 
 ### Docker Deployment
 
@@ -113,6 +128,13 @@ docker run -p 8000:8000 object-detection-api
 ```
 
 ## API Endpoints
+
+### Demo Interface
+```http
+GET /
+```
+
+Interactive web interface for uploading images and visualizing detection results.
 
 ### Health Check
 ```http
@@ -128,6 +150,7 @@ Content-Type: multipart/form-data
 
 file: <image-file>
 confidence: <float> (optional, default: 0.5)
+iou_threshold: <float> (optional, default: 0.45)
 ```
 
 Returns JSON with detected objects, confidence scores, and bounding box coordinates.

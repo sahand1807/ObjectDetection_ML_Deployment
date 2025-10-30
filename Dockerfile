@@ -61,6 +61,9 @@ RUN useradd -m -u 1000 appuser
 # (code changes more frequently than dependencies)
 COPY --chown=appuser:appuser ./app /app/app
 
+# Copy static files (demo UI)
+COPY --chown=appuser:appuser ./static /app/static
+
 # Give appuser write permission to /app (needed for model downloads)
 RUN chown -R appuser:appuser /app
 

@@ -16,8 +16,10 @@ Key Concepts:
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 import logging
+from pathlib import Path
 
 from app.config import settings
 from app.models import HealthResponse, PredictionResponse
@@ -50,6 +52,12 @@ app.add_middleware(
     allow_headers=["*"],  # Which headers are allowed
 )
 
+# Mount static files (for demo UI)
+# This serves the HTML/CSS/JS files from the static directory
+static_path = Path(__file__).parent.parent / "static"
+if static_path.exists():
+    app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
+
 
 # Startup Event - runs ONCE when the server starts
 @app.on_event("startup")
@@ -78,23 +86,29 @@ async def startup_event():
         logger.info("=" * 50)
 
 
-# Root Endpoint - Basic info about the API
+# Root Endpoint - Serve demo UI
 @app.get("/", tags=["General"])
 async def root():
     """
-    Root endpoint - returns basic API information
+    Root endpoint - serves the demo UI
 
     Try it: Open http://localhost:8000/ in your browser
     """
-    return {
-        "message": "Object Detection API",
-        "version": settings.app_version,
-        "docs": "/docs",  # Link to interactive documentation
-        "endpoints": {
-            "health": "GET /health - Check API status",
-            "predict": "POST /predict - Detect objects in an image",
-        },
-    }
+    index_path = Path(__file__).parent.parent / "static" / "index.html"
+    if index_path.exists():
+        return FileResponse(index_path)
+    else:
+        # Fallback if static files not available
+        return {
+            "message": "Object Detection API",
+            "version": settings.app_version,
+            "docs": "/docs",
+            "demo": "Demo UI not available (static files missing)",
+            "endpoints": {
+                "health": "GET /health - Check API status",
+                "predict": "POST /predict - Detect objects in an image",
+            },
+        }
 
 
 # Health Check Endpoint
