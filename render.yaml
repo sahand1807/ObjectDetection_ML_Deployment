@@ -1,0 +1,34 @@
+# Render Blueprint Configuration
+# Documentation: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: object-detection-api
+    runtime: docker
+    plan: free
+    region: oregon  
+
+    # Build configuration
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+
+    # Environment variables
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: MODEL_NAME
+        value: yolov8n.pt
+      - key: CONFIDENCE_THRESHOLD
+        value: 0.5
+      - key: IOU_THRESHOLD
+        value: 0.45
+      - key: MAX_FILE_SIZE
+        value: 10000000
+      - key: CORS_ORIGINS
+        value: "*"
+
+    # Health check configuration
+    healthCheckPath: /health
+
+    # Auto-deploy on push
+    autoDeploy: true
