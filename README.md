@@ -1,5 +1,16 @@
 # Real-Time Object Detection API
 
+## Live Demo
+
+🚀 **Deployed Application**: [https://object-detection-api-jm40.onrender.com](https://object-detection-api-jm40.onrender.com)
+
+Try the interactive demo:
+- **Demo Interface**: Upload images and see real-time object detection with bounding boxes
+- **API Documentation**: [https://object-detection-api-jm40.onrender.com/docs](https://object-detection-api-jm40.onrender.com/docs)
+- **Health Check**: [https://object-detection-api-jm40.onrender.com/health](https://object-detection-api-jm40.onrender.com/health)
+
+> **Note**: Running on Render free tier. First request after inactivity may take 30-60 seconds (cold start). Subsequent requests are processed in 5-10 seconds.
+
 ## Overview
 
 This project implements a production-ready REST API for real-time object detection using FastAPI, containerized with Docker, and deployable to cloud platforms. The system accepts image uploads, processes them through a pre-trained deep learning model, and returns detected objects with bounding box coordinates.
@@ -8,8 +19,8 @@ This project implements a production-ready REST API for real-time object detecti
 
 ```
 ┌─────────────┐      HTTP POST      ┌──────────────┐      ┌─────────────┐
-│   Client    │ ──────────────────> │  FastAPI     │ ───> │   YOLOv5    │
-│ (Web/Hugo)  │ <────────────────── │   Server     │ <─── │    Model    │
+│   Client    │ ──────────────────> │  FastAPI     │ ───> │   YOLOv8    │
+│   (Web)     │ <────────────────── │   Server     │ <─── │    Model    │
 └─────────────┘      JSON Response  └──────────────┘      └─────────────┘
                                             │
                                             │
@@ -23,7 +34,7 @@ This project implements a production-ready REST API for real-time object detecti
 
 - **FastAPI**: Modern, high-performance web framework for building APIs
 - **PyTorch**: Deep learning framework for model inference
-- **YOLOv5**: State-of-the-art object detection model
+- **YOLOv8**: State-of-the-art object detection model
 - **Docker**: Containerization platform for consistent deployment
 - **Uvicorn**: Lightning-fast ASGI server
 
@@ -69,8 +80,7 @@ ObjectDetection_ML_Deployment/
 ├── docs/
 │   ├── 01_fastapi_fundamentals.md
 │   ├── 02_docker_guide.md
-│   ├── 03_deployment_guide.md
-│   └── 04_hugo_integration.md
+│   └── 03_deployment_guide.md
 ├── tests/
 │   └── test_api.py
 ├── Dockerfile
@@ -159,7 +169,7 @@ Returns JSON with detected objects, confidence scores, and bounding box coordina
 
 - **Day 1**: FastAPI setup, model integration, local testing
 - **Day 2**: Docker containerization, optimization, local deployment
-- **Day 3**: Cloud deployment, Hugo integration, documentation
+- **Day 3**: Cloud deployment, documentation, production deployment
 
 ## Documentation
 
@@ -168,7 +178,6 @@ Comprehensive guides are available in the `docs/` directory:
 1. [FastAPI Fundamentals](docs/01_fastapi_fundamentals.md) - Core concepts and implementation
 2. [Docker Guide](docs/02_docker_guide.md) - Containerization best practices
 3. [Deployment Guide](docs/03_deployment_guide.md) - Cloud deployment strategies
-4. [Hugo Integration](docs/04_hugo_integration.md) - Client-side implementation
 
 ## Performance Considerations
 
@@ -194,6 +203,6 @@ This is an educational project. Feel free to fork and modify for your learning p
 
 ## Acknowledgments
 
-- YOLOv5 by Ultralytics
+- YOLOv8 by Ultralytics
 - FastAPI by Sebastián Ramírez
 - PyTorch by Meta AI
