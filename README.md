@@ -2,7 +2,7 @@
 
 ## Live Demo
 
-🚀 **Deployed Application**: [https://object-detection-api-jm40.onrender.com](https://object-detection-api-jm40.onrender.com)
+**Deployed Application**: [https://object-detection-api-jm40.onrender.com](https://object-detection-api-jm40.onrender.com)
 
 Try the interactive demo:
 - **Demo Interface**: Upload images and see real-time object detection with bounding boxes
@@ -19,12 +19,13 @@ This project implements a production-ready REST API for real-time object detecti
 
 ```
 ┌─────────────┐      HTTP POST      ┌──────────────┐      ┌─────────────┐
-│   Client    │ ──────────────────> │  FastAPI     │ ───> │   YOLOv8    │
-│   (Web)     │ <────────────────── │   Server     │ <─── │    Model    │
+│   Client    │ ──────────────────> │   FastAPI    │ ───> │   YOLOv8    │
+│    (Web)    │ <────────────────── │    Server    │ <─── │    Model    │
 └─────────────┘      JSON Response  └──────────────┘      └─────────────┘
                                             │
                                             │
-                                     ┌──────▼──────┐
+                                            ▼
+                                     ┌────────-────┐
                                      │   Docker    │
                                      │  Container  │
                                      └─────────────┘
@@ -201,8 +202,3 @@ MIT License - See LICENSE file for details
 
 This is an educational project. Feel free to fork and modify for your learning purposes.
 
-## Acknowledgments
-
-- YOLOv8 by Ultralytics
-- FastAPI by Sebastián Ramírez
-- PyTorch by Meta AI
