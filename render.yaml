@@ -25,7 +25,7 @@ services:
       - key: MAX_FILE_SIZE
         value: 10000000
       - key: CORS_ORIGINS
-        value: "*"
+        value: '["*"]'
 
     # Health check configuration
     healthCheckPath: /health
