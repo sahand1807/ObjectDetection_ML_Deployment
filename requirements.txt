@@ -1,0 +1,25 @@
+# Web Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.6  # Required for file uploads
+
+# Machine Learning
+torch>=2.6.0
+torchvision>=0.21.0
+opencv-python-headless>=4.10.0
+ultralytics>=8.3.0  # YOLOv5/YOLOv8
+pillow>=11.0.0
+numpy>=2.0.0
+
+# Data Validation
+pydantic>=2.10.0
+pydantic-settings>=2.6.0
+
+# Utilities
+python-dotenv>=1.0.0
+aiofiles>=23.2.1  # Async file operations
+
+# Testing
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
+httpx>=0.25.1  # Async HTTP client for testing
